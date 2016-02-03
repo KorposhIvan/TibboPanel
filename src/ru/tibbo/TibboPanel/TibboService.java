@@ -60,7 +60,7 @@ public class TibboService extends Service {
             mTcpClient.run();
             while (true) {
                 try {
-                    //Не работает!!!
+                    //Не работает!!Don't work
                     TimeUnit.SECONDS.sleep(10);
                     mTcpClient.sendMessage("getAll");
                 } catch (InterruptedException e) {
