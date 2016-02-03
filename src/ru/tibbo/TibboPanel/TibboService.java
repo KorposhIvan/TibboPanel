@@ -20,13 +20,16 @@ public class TibboService extends Service {
 
     public void onCreate() {
         super.onCreate();
-        es = Executors.newFixedThreadPool(1);
+        es = Executors.newFixedThreadPool(3);
         ListenRun lr = new ListenRun();
+        SendRun sr = new SendRun();
         es.execute(lr);
+        es.execute(sr);
     }
 
     public void onDestroy() {
         super.onDestroy();
+        mTcpClient.sendMessage("try stop");
         mTcpClient.stopClient();
     }
 
@@ -58,14 +61,16 @@ public class TibboService extends Service {
                 }
             });
             mTcpClient.run();
-            while (true) {
-                try {
-                    //Не работает!!
-                    TimeUnit.SECONDS.sleep(10);
-                    mTcpClient.sendMessage("getAll");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        }
+    }
+    public class SendRun implements Runnable {
+        public SendRun() {
+
+        }
+
+        public void run() {
+            if (mTcpClient!=null) {
+                mTcpClient.sendMessage("getAll from SendMessage");
             }
         }
     }
