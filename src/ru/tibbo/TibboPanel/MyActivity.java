@@ -22,7 +22,7 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         tv = (TextView) findViewById(R.id.rmes);
-        tv.setText("Waiting");
+        tv.setText("Waiting...");
         // создаем BroadcastReceiver
         br = new BroadcastReceiver() {
             // действия при получении сообщений
