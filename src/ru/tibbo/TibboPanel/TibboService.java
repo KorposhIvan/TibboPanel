@@ -7,20 +7,26 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.text.format.Time;
+
+import android.app.PendingIntent;
 
 
 public class TibboService extends Service {
-
+    // Идентификатор уведомления
+    private static final int NOTIFY_ID = 101;
     ExecutorService es;
     private TCPClient mTcpClient;
 
     public void onCreate() {
         super.onCreate();
-        es = Executors.newFixedThreadPool(3);
+
+        es = Executors.newFixedThreadPool(4);
         ListenRun lr = new ListenRun();
         SendRun sr = new SendRun();
         es.execute(lr);
@@ -29,12 +35,35 @@ public class TibboService extends Service {
 
     public void onDestroy() {
         super.onDestroy();
-        mTcpClient.sendMessage("try stop");
         mTcpClient.stopClient();
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
+        //sendNotif();
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    void sendNotif() {
+        Context context = getApplicationContext();
+        Intent notificationIntent = new Intent(context, MyActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(context,
+                0, notificationIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+        NotificationManager nm;
+        Notification.Builder nb;
+        nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        nb = new Notification.Builder(context);
+        nb.setContentIntent(contentIntent)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setTicker("Обнаружена протечка!")
+                .setWhen(System.currentTimeMillis())
+                .setAutoCancel(true)
+                .setContentTitle("Тревога")
+                .setContentText("Обнаружена протечка в подвале");
+        Notification notif = nb.build();
+        notif.defaults = notif.DEFAULT_ALL;
+        notif.flags = notif.flags | notif.FLAG_ONGOING_EVENT;
+        nm.notify(NOTIFY_ID,notif);
     }
 
     public IBinder onBind(Intent arg0) {
@@ -56,8 +85,10 @@ public class TibboService extends Service {
                     //here we have received message we should do smt
                     intent.putExtra(MyActivity.RMESSAGE,message);
                     sendBroadcast(intent);
-                    mTcpClient.sendMessage("ok!");
-                    if (message=="Socket is closed") { stopSelf(); }
+                    if (message.equals("Dry in podval")) {sendNotif();}
+                    if (message.equals("Socket is closed")) {stopSelf();}
+                    //if (message=="Socket is closed") { stopSelf(); }
+                    //if (submess == "Dry in podval") {sendNotif();}
                 }
             });
             mTcpClient.run();
@@ -69,8 +100,15 @@ public class TibboService extends Service {
         }
 
         public void run() {
-            if (mTcpClient!=null) {
-                mTcpClient.sendMessage("getAll from SendMessage");
+            while (true) {
+                try {
+                    TimeUnit.SECONDS.sleep(15);
+                    if (mTcpClient!=null) {
+                        mTcpClient.sendMessage("getAll");
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
