@@ -22,6 +22,7 @@ public class TibboService extends Service {
     private static final int NOTIFY_ID = 101;
     ExecutorService es;
     private TCPClient mTcpClient;
+    boolean RESTARTSERVICE=false;
 
     public void onCreate() {
         super.onCreate();
@@ -29,7 +30,10 @@ public class TibboService extends Service {
 
     public void onDestroy() {
         super.onDestroy();
-        mTcpClient.stopClient();
+        if (RESTARTSERVICE = true) {
+            mTcpClient.stopClient();
+            startService(new Intent(this,TibboService.class));
+        }
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -84,7 +88,7 @@ public class TibboService extends Service {
                     intent.putExtra(MyActivity.RMESSAGE,message);
                     sendBroadcast(intent);
                     if (message.equals("Dry in podval")) {sendNotif();}
-                    if (message.equals("Socket is closed")) {stopSelf();}
+                    if (message.equals("Socket is closed")) {RESTARTSERVICE = true; stopSelf();}
                 }
             });
             mTcpClient.run();
