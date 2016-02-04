@@ -25,12 +25,6 @@ public class TibboService extends Service {
 
     public void onCreate() {
         super.onCreate();
-
-        es = Executors.newFixedThreadPool(4);
-        ListenRun lr = new ListenRun();
-        SendRun sr = new SendRun();
-        es.execute(lr);
-        es.execute(sr);
     }
 
     public void onDestroy() {
@@ -39,7 +33,11 @@ public class TibboService extends Service {
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //sendNotif();
+        es = Executors.newFixedThreadPool(3);
+        ListenRun lr = new ListenRun();
+        SendRun sr = new SendRun();
+        es.execute(lr);
+        es.execute(sr);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -77,18 +75,16 @@ public class TibboService extends Service {
         }
 
         public void run() {
-            final Intent intent = new Intent(MyActivity.BROADCAST_ACTION);
             mTcpClient = new TCPClient(new TCPClient.OnMessageReceived() {
                 @Override
                 //here the messageReceived method is implemented
                 public void messageReceived(String message) {
                     //here we have received message we should do smt
+                    final Intent intent = new Intent(MyActivity.BROADCAST_ACTION);
                     intent.putExtra(MyActivity.RMESSAGE,message);
                     sendBroadcast(intent);
                     if (message.equals("Dry in podval")) {sendNotif();}
                     if (message.equals("Socket is closed")) {stopSelf();}
-                    //if (message=="Socket is closed") { stopSelf(); }
-                    //if (submess == "Dry in podval") {sendNotif();}
                 }
             });
             mTcpClient.run();

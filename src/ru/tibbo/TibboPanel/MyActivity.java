@@ -13,6 +13,7 @@ public class MyActivity extends Activity {
 
     public final static String BROADCAST_ACTION = "ru.tibbo.TibboPanel";
     public final static String RMESSAGE = "RECEIVED";
+    private TimeBroadcastReceiver mTimeBroadCastReceiver = new TimeBroadcastReceiver();
     TextView tv;
     BroadcastReceiver br;
 
@@ -35,8 +36,19 @@ public class MyActivity extends Activity {
         IntentFilter intFilt = new IntentFilter(BROADCAST_ACTION);
         // регистрируем (включаем) BroadcastReceiver
         registerReceiver(br, intFilt);
+        registerBroadcastReceiver();
         Intent intent = new Intent(this,TibboService.class);
         startService(intent);
+    }
+
+    public void registerBroadcastReceiver() {
+        this.registerReceiver(mTimeBroadCastReceiver, new IntentFilter(
+                "android.intent.action.TIME_TICK"));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override
