@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuItem;
 import ru.tibbo.TibboPanel.pageadapter.TabsPagerAdapter;
 
 
@@ -115,6 +116,27 @@ public class MyActivity extends FragmentActivity implements ActionBar.TabListene
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.mymenu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.menu_settings:
+                Intent intentset = new Intent(this, SetActivity.class);
+                startActivity(intentset);
+                return true;
+            case R.id.menu_notifications:
+                Intent intentnot = new Intent(this,NotActivity.class);
+                startActivity(intentnot);
+                return true;
+            case R.id.menu_about:
+                Intent intentabout = new Intent(this, aboutActivity.class);
+                startActivity(intentabout);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

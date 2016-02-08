@@ -10,8 +10,8 @@ import java.net.Socket;
 public class TCPClient {
 
     private String serverMessage;
-    public static final String SERVERIP = "192.168.1.100"; //your computer IP address
-    public static final int SERVERPORT = 1001;
+    public static String SERVERIP = "192.168.1.100"; //your computer IP address
+    public static int SERVERPORT = 1001;
     private OnMessageReceived mMessageListener = null;
     private boolean mRun = false;
     int state;
@@ -19,8 +19,10 @@ public class TCPClient {
     PrintWriter out;
     BufferedReader in;
 
-    public TCPClient(OnMessageReceived listener) {
+    public TCPClient(OnMessageReceived listener, String ip, int port) {
         mMessageListener = listener;
+        SERVERIP = ip;
+        SERVERPORT = port;
     }
 
     public void sendMessage(String message){

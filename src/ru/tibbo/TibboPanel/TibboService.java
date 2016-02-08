@@ -12,6 +12,7 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 
 import android.app.PendingIntent;
@@ -29,7 +30,7 @@ public class TibboService extends Service {
 
     public void onDestroy() {
         super.onDestroy();
-        if (RESTARTSERVICE = true) {
+        if (RESTARTSERVICE == true) {
             mTcpClient.stopClient();
             startService(new Intent(this,TibboService.class));
         }
@@ -78,6 +79,22 @@ public class TibboService extends Service {
         }
 
         public void run() {
+            //------------------Get settings
+            SharedPreferences tibboSettings;
+            final String APP_PREFERENCES = "tibbosettings";
+            final String APP_PREFERENCES_IP = "IP";
+            final String APP_PREFERENCES_PORT = "PORT";
+            String strIP = "192.168.1.100";
+            String strPort = "1001";
+            tibboSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+            if (tibboSettings.contains(APP_PREFERENCES_IP)) {
+                strIP = tibboSettings.getString(APP_PREFERENCES_IP,"");
+            }
+            if (tibboSettings.contains(APP_PREFERENCES_PORT)) {
+                strPort = tibboSettings.getString(APP_PREFERENCES_PORT,"");
+            }
+
             mTcpClient = new TCPClient(new TCPClient.OnMessageReceived() {
                 @Override
                 //here the messageReceived method is implemented
@@ -89,7 +106,7 @@ public class TibboService extends Service {
                     if (message.equals("Dry in podval")) {sendNotif();}
                     if (message.equals("Socket is closed")) {RESTARTSERVICE = true; stopSelf();}
                 }
-            });
+            },strIP,Integer.parseInt(strPort));
             mTcpClient.run();
         }
     }

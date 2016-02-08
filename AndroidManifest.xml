@@ -26,5 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".SetActivity"
+                  android:label="Настройки:"/>
+        <activity android:name=".NotActivity"
+                  android:label="Уведомления:"/>
+        <activity android:name=".aboutActivity"
+                  android:label="О программе"/>
     </application>
 </manifest>
