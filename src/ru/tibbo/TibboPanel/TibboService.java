@@ -16,7 +16,6 @@ import android.os.IBinder;
 
 import android.app.PendingIntent;
 
-
 public class TibboService extends Service {
     // Идентификатор уведомления
     private static final int NOTIFY_ID = 101;

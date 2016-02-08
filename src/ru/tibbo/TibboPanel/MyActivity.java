@@ -1,7 +1,6 @@
 package ru.tibbo.TibboPanel;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,7 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.widget.TextView;
+import android.view.Menu;
 import ru.tibbo.TibboPanel.pageadapter.TabsPagerAdapter;
 
 
@@ -23,7 +22,7 @@ public class MyActivity extends FragmentActivity implements ActionBar.TabListene
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
-    private String[] tabs = { "Monitor", "Manual"};
+    private String[] tabs = { "Статус", "Режимы"};
 
     /** Called when the activity is first created. */
     @Override
@@ -111,6 +110,11 @@ public class MyActivity extends FragmentActivity implements ActionBar.TabListene
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mymenu, menu);
+        return true;
     }
 
 }
