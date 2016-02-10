@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 
@@ -15,7 +17,7 @@ public class MyActivity extends Activity {
 
     public final static String BROADCAST_ACTION = "ru.tibbo.TibboPanel";
     public final static String RMESSAGE = "RECEIVED";
-    TextView tv;
+    TextView tvRT, tvST;
     BroadcastReceiver br;
 
     /** Called when the activity is first created. */
@@ -24,16 +26,20 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        tv = (TextView) findViewById(R.id.tvRoomTemp);
-        tv.setText("--");
+        tvRT = (TextView) findViewById(R.id.tvRoomTemp);
+        tvST = (TextView) findViewById(R.id.tvStreetTemp);
+        tvRT.setText("--");
+        tvST.setText("--");
         // создаем BroadcastReceiver
         br = new BroadcastReceiver() {
             // действия при получении сообщений
             public void onReceive(Context context, Intent intent) {
-                String result = intent.getStringExtra(RMESSAGE);
-                tv.setText(result);
+                String[] result = Parse(intent.getStringExtra(RMESSAGE));
+                tvST.setText(result[0]);
+                tvRT.setText(result[1]);
             }
         };
+
         // создаем фильтр для BroadcastReceiver
         IntentFilter intFilt = new IntentFilter(BROADCAST_ACTION);
         // регистрируем (включаем) BroadcastReceiver
@@ -80,5 +86,12 @@ public class MyActivity extends Activity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public String[] Parse(String message) {
+        String[] parseresult;
+        parseresult = message.split(";");
+        return parseresult;
+    }
+
 
 }

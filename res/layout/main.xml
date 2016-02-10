@@ -15,7 +15,6 @@
                 style="@style/Style_second_text" android:typeface="normal"/>
         <TextView
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="-15.5 C"
                 android:id="@+id/tvStreetTemp" style="@style/Style_main_text" android:typeface="normal"/>
     </LinearLayout>
     <LinearLayout
@@ -27,7 +26,6 @@
                 style="@style/Style_second_text"/>
         <TextView
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="22.5 C"
                 android:id="@+id/tvRoomTemp" style="@style/Style_main_text" android:typeface="normal"/>
     </LinearLayout>
     <LinearLayout
@@ -46,5 +44,10 @@
         <TextView
                 android:text="@string/tvHeatFloor"
                 style="@style/Style_second_text"/>
+        <Switch
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:id="@+id/swHF" android:textOn="Вкл" android:textOff="Выкл"
+                android:checked="false" android:paddingEnd="55dp"/>
     </LinearLayout>
 </GridLayout>

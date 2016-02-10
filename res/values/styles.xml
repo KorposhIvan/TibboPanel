@@ -4,7 +4,7 @@
         <item name="android:background">#616161</item>
     </style>
     <style name="Style_second" parent="@android:style/Theme.Holo">
-        <item name="android:background">#9E9E9E</item>
+        <item name="android:background">#F5F5F5</item>
         <item name="android:orientation">vertical</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginStart">12dp</item>
@@ -19,7 +19,7 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
     <style name="Style_main_text" parent="@android:style/TextAppearance.Large">
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">#212121</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">72dp</item>
         <item name="android:textSize">28sp</item>
