@@ -1,29 +1,22 @@
 package ru.tibbo.TibboPanel;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import ru.tibbo.TibboPanel.pageadapter.TabsPagerAdapter;
+import android.widget.TextView;
 
 
-public class MyActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MyActivity extends Activity {
 
     public final static String BROADCAST_ACTION = "ru.tibbo.TibboPanel";
     public final static String RMESSAGE = "RECEIVED";
-    //TextView tv;
+    TextView tv;
     BroadcastReceiver br;
-    private ViewPager viewPager;
-    private TabsPagerAdapter mAdapter;
-    private ActionBar actionBar;
-    private String[] tabs = { "Статус", "Режимы"};
 
     /** Called when the activity is first created. */
     @Override
@@ -31,28 +24,14 @@ public class MyActivity extends FragmentActivity implements ActionBar.TabListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        // Initilization
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        actionBar = getActionBar();
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-
-        viewPager.setAdapter(mAdapter);
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Adding Tabs
-        for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
-                    .setTabListener(this));
-        }
-        //tv = (TextView) findViewById(R.id.rmes);
-        //tv.setText("Waiting...");
+        tv = (TextView) findViewById(R.id.tvRoomTemp);
+        tv.setText("--");
         // создаем BroadcastReceiver
         br = new BroadcastReceiver() {
             // действия при получении сообщений
             public void onReceive(Context context, Intent intent) {
                 String result = intent.getStringExtra(RMESSAGE);
-                //tv.setText(result);
+                tv.setText(result);
             }
         };
         // создаем фильтр для BroadcastReceiver
@@ -61,25 +40,6 @@ public class MyActivity extends FragmentActivity implements ActionBar.TabListene
         registerReceiver(br, intFilt);
         Intent intent = new Intent(this,TibboService.class);
         startService(intent);
-
-        //Listener for tap tabs
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-                // on changing the page
-                // make respected tab selected
-                actionBar.setSelectedNavigationItem(position);
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-            }
-        });
     }
 
 
@@ -93,24 +53,6 @@ public class MyActivity extends FragmentActivity implements ActionBar.TabListene
         super.onDestroy();
         // дерегистрируем (выключаем) BroadcastReceiver
         unregisterReceiver(br);
-    }
-
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        // on tab selected
-        // show respected fragment view
-        viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

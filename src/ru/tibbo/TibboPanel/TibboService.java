@@ -118,9 +118,9 @@ public class TibboService extends Service {
         public void run() {
             while (true) {
                 try {
-                    TimeUnit.SECONDS.sleep(15);
                     if (mTcpClient!=null) {
                         mTcpClient.sendMessage("getAll");
+                        TimeUnit.SECONDS.sleep(15);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-                                   android:id="@+id/pager"
-                                   android:layout_width="match_parent"
-                                   android:layout_height="match_parent">
-</android.support.v4.view.ViewPager>
-
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:columnCount="3"
+            android:rowCount="7"
+            android:orientation="horizontal" style="@style/Style_main">
+    <LinearLayout
+            android:layout_row="0"
+            android:layout_column="0"
+            style="@style/Style_second">
+        <TextView
+                android:text="@string/tvStreetT"
+                style="@style/Style_second_text" android:typeface="normal"/>
+        <TextView
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="-15.5 C"
+                android:id="@+id/tvStreetTemp" style="@style/Style_main_text" android:typeface="normal"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_row="0"
+            android:layout_column="1"
+            style="@style/Style_second">
+        <TextView
+                android:text="@string/tvRoomT"
+                style="@style/Style_second_text"/>
+        <TextView
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="22.5 C"
+                android:id="@+id/tvRoomTemp" style="@style/Style_main_text" android:typeface="normal"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_row="0"
+            android:layout_column="2"
+            android:layout_rowSpan="2"
+            android:layout_marginEnd="14dp" style="@style/Style_second">
+        <TextView
+                android:text="@string/tvModeControl"
+                style="@style/Style_second_text"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_columnSpan="2" style="@style/Style_second">
+        <TextView
+                android:text="@string/tvHeatFloor"
+                style="@style/Style_second_text"/>
+    </LinearLayout>
+</GridLayout>
