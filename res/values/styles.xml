@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Style_main" parent="@android:style/Theme.Holo">
-        <item name="android:background">#616161</item>
+        <item name="android:background">#9E9E9E</item>
     </style>
     <style name="Style_second" parent="@android:style/Theme.Holo">
-        <item name="android:background">#F5F5F5</item>
+        <!--<item name="android:background">#F5F5F5</item>-->
+        <item name="android:background">@drawable/background_with_shadow</item>
         <item name="android:orientation">vertical</item>
         <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:layout_marginStart">7dp</item>
         <item name="android:layout_width">110dp</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:layout_gravity">fill</item>
+        <item name="android:radius">2dp</item>
     </style>
     <style name="Style_second_text" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">#727272</item>

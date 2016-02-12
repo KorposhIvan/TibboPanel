@@ -2,6 +2,7 @@
   <dictionary name="Ivan">
     <words>
       <w>intentset</w>
+      <w>parseresult</w>
       <w>recv</w>
       <w>rmes</w>
       <w>serv</w>

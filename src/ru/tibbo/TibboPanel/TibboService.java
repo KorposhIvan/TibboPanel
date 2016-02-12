@@ -27,6 +27,11 @@ public class TibboService extends Service {
 
     public void onCreate() {
         super.onCreate();
+        es = Executors.newFixedThreadPool(4);
+        ListenRun lr = new ListenRun();
+        SendRun sr = new SendRun();
+        es.execute(lr);
+        es.execute(sr);
     }
 
     public void onDestroy() {
@@ -38,11 +43,9 @@ public class TibboService extends Service {
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
-        es = Executors.newFixedThreadPool(3);
-        ListenRun lr = new ListenRun();
-        SendRun sr = new SendRun();
-        es.execute(lr);
-        es.execute(sr);
+        if (mTcpClient != null) {
+            mTcpClient.sendMessage(intent.getStringExtra("Command"));
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 

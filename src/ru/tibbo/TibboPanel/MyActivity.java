@@ -8,8 +8,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -18,6 +18,7 @@ public class MyActivity extends Activity {
     public final static String BROADCAST_ACTION = "ru.tibbo.TibboPanel";
     public final static String RMESSAGE = "RECEIVED";
     TextView tvRT, tvST;
+    Button btnSend;
     BroadcastReceiver br;
 
     /** Called when the activity is first created. */
@@ -88,10 +89,21 @@ public class MyActivity extends Activity {
     }
 
     public String[] Parse(String message) {
-        String[] parseresult;
-        parseresult = message.split(";");
+        String[] temp;
+        String[] parseresult = new String[2];
+        temp = message.split(";");
+        if (temp.length == 1) {
+            parseresult[0] = "error";
+            parseresult[1] = "error";
+        }
+        else {
+            parseresult[0] = temp[0];
+            parseresult[1] = temp[1];
+        }
         return parseresult;
     }
-
-
+    public void sendmess(View v) {
+        tvRT.setText("Send");
+        startService(new Intent(this,TibboService.class).putExtra("Command","We are click the activity!"));
+    }
 }
