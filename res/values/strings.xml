@@ -5,5 +5,5 @@
     <string name="tvRoomT">Комната:</string>
     <string name="tvModeControl">Режим:</string>
     <string name="tvHeatFloor">Теплый пол:</string>
-    <string name="tvStatus"> Статус:</string>
+    <string name="tvStatus">Статус:</string>
 </resources>
