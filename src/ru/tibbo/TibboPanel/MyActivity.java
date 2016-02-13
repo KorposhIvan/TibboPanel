@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -19,6 +20,7 @@ public class MyActivity extends Activity {
     public final static String RMESSAGE = "RECEIVED";
     TextView tvRT, tvST;
     Button btnSend;
+    ImageButton btnHFon,btnHFoff;
     BroadcastReceiver br;
 
     /** Called when the activity is first created. */
@@ -29,6 +31,9 @@ public class MyActivity extends Activity {
 
         tvRT = (TextView) findViewById(R.id.tvRoomTemp);
         tvST = (TextView) findViewById(R.id.tvStreetTemp);
+        btnHFon = (ImageButton) findViewById(R.id.imbtnHFon);
+        btnHFoff = (ImageButton) findViewById(R.id.imbtnHFoff);
+        btnHFoff.setEnabled(false);
         tvRT.setText("--");
         tvST.setText("--");
         // создаем BroadcastReceiver
@@ -105,5 +110,17 @@ public class MyActivity extends Activity {
     public void sendmess(View v) {
         tvRT.setText("Send");
         startService(new Intent(this,TibboService.class).putExtra("Command","We are click the activity!"));
+    }
+    public void onBtnHFon (View v) {
+        startService(new Intent(this,TibboService.class).putExtra("Command","TPon"));
+        btnHFon.setBackgroundResource(R.drawable.tp_en_disactive);
+        btnHFon.setEnabled(false);
+        btnHFoff.setEnabled(true);
+    }
+    public void onBtnHFoff (View v) {
+        startService(new Intent(this,TibboService.class).putExtra("Command","TPoff"));
+        btnHFoff.setEnabled(false);
+        btnHFon.setBackgroundResource(R.drawable.tp_en_act);
+        btnHFon.setEnabled(true);
     }
 }
