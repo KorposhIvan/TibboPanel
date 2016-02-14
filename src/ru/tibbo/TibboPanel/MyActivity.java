@@ -113,15 +113,15 @@ public class MyActivity extends Activity {
     }
     public void onBtnHFon (View v) {
         startService(new Intent(this,TibboService.class).putExtra("Command","TPon"));
-        btnHFon.setBackgroundResource(R.drawable.tp_en_act2);
-        btnHFoff.setBackgroundResource(R.drawable.tp_dis_act1);
+        btnHFon.setBackgroundResource(R.drawable.tponen);
+        btnHFoff.setBackgroundResource(R.drawable.tpoffdis);
         btnHFon.setEnabled(false);
         btnHFoff.setEnabled(true);
     }
     public void onBtnHFoff (View v) {
         startService(new Intent(this,TibboService.class).putExtra("Command","TPoff"));
-        btnHFon.setBackgroundResource(R.drawable.tp_en_act1);
-        btnHFoff.setBackgroundResource(R.drawable.tp_dis_act2);
+        btnHFon.setBackgroundResource(R.drawable.tpondis);
+        btnHFoff.setBackgroundResource(R.drawable.tpoffen);
         btnHFon.setEnabled(true);
         btnHFoff.setEnabled(false);
     }

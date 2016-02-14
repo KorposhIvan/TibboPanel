@@ -83,14 +83,14 @@
                     android:layout_column="0"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="left"
-                    android:id="@+id/imbtnHFon" android:background="@drawable/tp_en_act1" android:onClick="onBtnHFon"/>
+                    android:id="@+id/imbtnHFon" android:background="@drawable/tpondis" android:onClick="onBtnHFon"/>
             <ImageButton
                     android:layout_width="110dp"
                     android:layout_height="65dp"
                     android:layout_row="1"
                     android:layout_column="1"
                     android:id="@+id/imbtnHFoff" android:layout_gravity="left" android:onClick="onBtnHFoff"
-                    android:background="@drawable/tp_dis_act2"/>
+                    android:background="@drawable/tpoffen"/>
         </GridLayout>
     </LinearLayout>
 </GridLayout>
