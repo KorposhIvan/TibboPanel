@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ public class MyActivity extends Activity {
     public final static String RMESSAGE = "RECEIVED";
     TextView tvRT, tvST;
     ImageButton btnHFon,btnHFoff,btnModeMan,btnModeAuto;
+    GridLayout modegridm, modegrida;
     BroadcastReceiver br;
 
     /** Called when the activity is first created. */
@@ -28,6 +30,8 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        modegridm = (GridLayout) findViewById(R.id.modegridm);
+        modegrida = (GridLayout) findViewById(R.id.modegrida);
         tvRT = (TextView) findViewById(R.id.tvRoomTemp);
         tvST = (TextView) findViewById(R.id.tvStreetTemp);
         btnHFon = (ImageButton) findViewById(R.id.imbtnHFon);
@@ -132,6 +136,8 @@ public class MyActivity extends Activity {
         btnModeMan.setBackgroundResource(R.drawable.mdmandis);
         btnModeAuto.setEnabled(false);
         btnModeMan.setEnabled(true);
+        modegrida.setVisibility(modegridm.VISIBLE);
+        modegridm.setVisibility(modegrida.GONE);
     }
 
     public void onBtnModemanual (View v) {
@@ -140,5 +146,7 @@ public class MyActivity extends Activity {
         btnModeAuto.setBackgroundResource(R.drawable.mdatdis);
         btnModeMan.setEnabled(false);
         btnModeAuto.setEnabled(true);
+        modegridm.setVisibility(modegridm.VISIBLE);
+        modegrida.setVisibility(modegridm.GONE);
     }
 }
