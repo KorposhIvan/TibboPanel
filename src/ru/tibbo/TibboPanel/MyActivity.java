@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -19,10 +18,14 @@ public class MyActivity extends Activity {
 
     public final static String BROADCAST_ACTION = "ru.tibbo.TibboPanel";
     public final static String RMESSAGE = "RECEIVED";
-    TextView tvRT, tvST;
+    TextView tvRT, tvST, tvSetTemp;
     ImageButton btnHFon,btnHFoff,btnModeMan,btnModeAuto;
     GridLayout modegridm, modegrida;
     BroadcastReceiver br;
+    String goalTemp = "+%1$d C";
+    int CurrSTemp = 22;
+    int MaxSTemp = 27;
+    int MinSTemp = 17;
 
     /** Called when the activity is first created. */
     @Override
@@ -34,6 +37,7 @@ public class MyActivity extends Activity {
         modegrida = (GridLayout) findViewById(R.id.modegrida);
         tvRT = (TextView) findViewById(R.id.tvRoomTemp);
         tvST = (TextView) findViewById(R.id.tvStreetTemp);
+        tvSetTemp = (TextView) findViewById(R.id.tvSetTemp);
         btnHFon = (ImageButton) findViewById(R.id.imbtnHFon);
         btnHFoff = (ImageButton) findViewById(R.id.imbtnHFoff);
         btnModeMan = (ImageButton) findViewById(R.id.imbtnMdman);
@@ -42,6 +46,7 @@ public class MyActivity extends Activity {
         btnModeAuto.setEnabled(false);
         tvRT.setText("--");
         tvST.setText("--");
+        tvSetTemp.setText(String.format(goalTemp,CurrSTemp));
         // создаем BroadcastReceiver
         br = new BroadcastReceiver() {
             // действия при получении сообщений
@@ -148,5 +153,39 @@ public class MyActivity extends Activity {
         btnModeAuto.setEnabled(true);
         modegridm.setVisibility(modegridm.VISIBLE);
         modegrida.setVisibility(modegridm.GONE);
+    }
+
+    public void onBtnSetTempUp (View v) {
+        String tempmess;
+        if (CurrSTemp>MaxSTemp) {
+            tempmess = "max";
+        }
+        else if (CurrSTemp == MaxSTemp) {
+            tempmess = "max";
+            CurrSTemp++;
+        }
+        else {
+            CurrSTemp++;
+            tempmess = String.format(goalTemp,CurrSTemp);
+        }
+        tvSetTemp.setText(tempmess);
+        startService(new Intent(this,TibboService.class).putExtra("Command",tempmess));
+    }
+
+    public void onBtnSetTempDown (View v) {
+        String tempmess;
+        if (CurrSTemp<MinSTemp) {
+            tempmess = "min";
+        }
+        else if (CurrSTemp==MinSTemp) {
+            tempmess = "min";
+            CurrSTemp--;
+        }
+        else {
+            CurrSTemp--;
+            tempmess = String.format(goalTemp,CurrSTemp);
+        }
+        tvSetTemp.setText(tempmess);
+        startService(new Intent(this,TibboService.class).putExtra("Command",tempmess));
     }
 }
