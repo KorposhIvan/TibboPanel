@@ -174,8 +174,7 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Up"
-                android:id="@+id/button"/>
+                android:id="@+id/button" android:background="@drawable/btn_zh_up_backgr"/>
     </LinearLayout>
     <LinearLayout android:layout_row="5"
                   android:layout_column="1"
@@ -199,20 +198,23 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Down"
-                android:id="@+id/button2"/>
+                android:id="@+id/button2" android:background="@drawable/btn_zh_dwn_backgr"/>
+        <SeekBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar" android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout android:layout_row="6"
-                                     android:layout_column="0"
-                                     style="@style/Style_second"
-                                     android:layout_marginTop="7dp"
-                                     android:layout_height="30dp">
+                  android:layout_column="0"
+                  style="@style/Style_second"
+                  android:layout_marginTop="7dp"
+                  android:layout_height="30dp">
 
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Up"
-                android:id="@+id/button3"/>
+                android:id="@+id/button3" android:background="@drawable/btn_zh_up_backgr"/>
     </LinearLayout>
     <LinearLayout android:layout_row="6"
                   android:layout_column="1"
@@ -237,7 +239,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Down"
-                android:id="@+id/button4"/>
+                android:id="@+id/button4" android:background="@drawable/btn_zh_dwn_backgr"/>
     </LinearLayout>
     <LinearLayout android:layout_row="7"
                   android:layout_column="0"
@@ -249,7 +251,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Up"
-                android:id="@+id/button6"/>
+                android:id="@+id/button6" android:background="@drawable/btn_zh_up_backgr"/>
     </LinearLayout>
     <LinearLayout android:layout_row="7"
                   android:layout_column="1"
@@ -274,7 +276,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Down"
-                android:id="@+id/button7"/>
+                android:id="@+id/button7" android:background="@drawable/btn_zh_dwn_backgr"/>
     </LinearLayout>
     <LinearLayout style="@style/Style_second"
                   android:layout_row="8"
