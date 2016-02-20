@@ -22,7 +22,7 @@
                 android:background="#616161"
                 android:textColor="#F5F5F5"
                 android:text="@string/tvStatus"
-                android:id="@+id/textView"/>
+                android:id="@+id/tvStatus"/>
     </LinearLayout>
     <LinearLayout
             android:layout_row="1"
