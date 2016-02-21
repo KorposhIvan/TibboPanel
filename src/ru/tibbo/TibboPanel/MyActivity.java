@@ -150,21 +150,16 @@ public class MyActivity extends Activity {
     }
 
     public String[] Parse(String message) {
-        /*String[] temp;
-        String[] parseresult = new String[2];
-        temp = message.split(";");
-        if (temp.length == 1) {
-            parseresult[0] = "error";
-            parseresult[1] = "error";
-        }
-        else {
-            parseresult[0] = temp[0];
-            parseresult[1] = temp[1];
-        }
-        return parseresult;*/
         String[] parseresult = new String[16];
         parseresult = message.split(";");
-        if (parseresult.length == 1) {return answer_controller;} else {return parseresult;}
+        if (parseresult.length == 1) {
+            return answer_controller;
+        } else {
+            for (int i=0; i<parseresult.length;i++){
+                if (parseresult[i].equals(" ")) {parseresult[i]=answer_controller[i];}
+            }
+            return parseresult;
+        }
     }
 
     public void GuiUpdate(String[] param) {
