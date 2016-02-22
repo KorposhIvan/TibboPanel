@@ -29,6 +29,7 @@ public class MyActivity extends Activity {
     int MinSTemp = 17;
     String[] answer_controller = new String[16];
     String[] command_controller = new String[23];
+    String strTcmdcontr = "FF;001;%1$s;%2$s; ; ; ";
 
     /** Called when the activity is first created. */
     @Override
@@ -48,6 +49,7 @@ public class MyActivity extends Activity {
         btnModeAuto = (ImageButton) findViewById(R.id.imbtnMdauto);
 
         //Команды для контроллера
+
         command_controller[0] = "00"; //Получить все данные
         command_controller[1] = "01"; //Получить температуру на улице
         command_controller[2] = "02"; //Получить температуру в комнате
@@ -208,7 +210,7 @@ public class MyActivity extends Activity {
     }
 
     public void onBtnHFon (View v) {
-        startService(new Intent(this,TibboService.class).putExtra("Command",answer_controller[0]));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[7]," ")));
         //startService(new Intent(this,TibboService.class).putExtra("Command","TPon"));
         btnHFon.setBackgroundResource(R.drawable.tponen);
         btnHFoff.setBackgroundResource(R.drawable.tpoffdis);
@@ -217,7 +219,7 @@ public class MyActivity extends Activity {
     }
 
     public void onBtnHFoff (View v) {
-        startService(new Intent(this,TibboService.class).putExtra("Command","Привет"));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[8]," ")));
         btnHFon.setBackgroundResource(R.drawable.tpondis);
         btnHFoff.setBackgroundResource(R.drawable.tpoffen);
         btnHFon.setEnabled(true);
@@ -225,7 +227,7 @@ public class MyActivity extends Activity {
     }
 
     public void onBtnModeauto (View v) {
-        startService(new Intent(this,TibboService.class).putExtra("Command","Auto"));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[20],"0")));
         btnModeAuto.setBackgroundResource(R.drawable.mdaten);
         btnModeMan.setBackgroundResource(R.drawable.mdmandis);
         btnModeAuto.setEnabled(false);
@@ -235,7 +237,7 @@ public class MyActivity extends Activity {
     }
 
     public void onBtnModemanual (View v) {
-        startService(new Intent(this,TibboService.class).putExtra("Command","Manual"));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[20],"1")));
         btnModeMan.setBackgroundResource(R.drawable.mdmanen);
         btnModeAuto.setBackgroundResource(R.drawable.mdatdis);
         btnModeMan.setEnabled(false);
@@ -258,7 +260,7 @@ public class MyActivity extends Activity {
             tempmess = String.format(goalTemp,CurrSTemp);
         }
         tvSetTemp.setText(tempmess);
-        startService(new Intent(this,TibboService.class).putExtra("Command",tempmess));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[21],tempmess)));
     }
 
     public void onBtnSetTempDown (View v) {
@@ -275,6 +277,6 @@ public class MyActivity extends Activity {
             tempmess = String.format(goalTemp,CurrSTemp);
         }
         tvSetTemp.setText(tempmess);
-        startService(new Intent(this,TibboService.class).putExtra("Command",tempmess));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[21],tempmess)));
     }
 }
