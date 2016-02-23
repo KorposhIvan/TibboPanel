@@ -35,11 +35,10 @@ public class TibboService extends Service {
 
     public void onDestroy() {
         super.onDestroy();
-        if (RESTARTSERVICE) {
+        //if (RESTARTSERVICE) {
             mTcpClient.stopClient();
             startService(new Intent(this,TibboService.class));
-            //Перезапуск службы. Работаем только при разрыве. Нужно продумать бесконечный перезапуск.
-        }
+        //}
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -121,10 +120,19 @@ public class TibboService extends Service {
         }
 
         public void run() {
+            SharedPreferences tbset;
+            String roomid="001"; //Нужно взять из настроек номер команты и посылать его.
+            final String APP_PREFERENCES = "tibbosettings";
+            final String APP_PREFERENCES_IDROOM = "IDROOM";
+            tbset = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+            if (tbset.contains(APP_PREFERENCES_IDROOM)) {
+                roomid = tbset.getString(APP_PREFERENCES_IDROOM,"");
+            }
+
             while (true) {
                 try {
                     if (mTcpClient!=null) {
-                        mTcpClient.sendMessage("getAll"); //Посылка команды получить все. На практике нужно изменить
+                        mTcpClient.sendMessage("FF;"+roomid+";00; ; ; ; "); //Посылка команды получить все. На практике нужно изменить
                         TimeUnit.SECONDS.sleep(15);
                     }
                 } catch (InterruptedException e) {

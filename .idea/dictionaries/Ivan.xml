@@ -2,6 +2,8 @@
   <dictionary name="Ivan">
     <words>
       <w>backgr</w>
+      <w>droom</w>
+      <w>idroom</w>
       <w>imbtn</w>
       <w>intentset</w>
       <w>mdauto</w>
@@ -9,12 +11,14 @@
       <w>recv</w>
       <w>restartservice</w>
       <w>rmes</w>
+      <w>roomid</w>
       <w>serv</w>
       <w>settem</w>
       <w>settemp</w>
       <w>tempmess</w>
       <w>tibbo</w>
       <w>tibboprocess</w>
+      <w>tibbosettings</w>
       <w>tpoffen</w>
       <w>tpondis</w>
     </words>

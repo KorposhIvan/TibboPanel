@@ -175,7 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/tvZhUp"
-                android:id="@+id/button" android:background="@drawable/btn_zh_up_backgr"/>
+                android:id="@+id/ZhUp1" android:background="@drawable/btn_zh_up_backgr" android:onClick="onBtnZh"/>
     </LinearLayout>
     <LinearLayout android:layout_row="5"
                   android:layout_column="1"
@@ -201,7 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/tvZhDwn"
-                android:id="@+id/button2" android:background="@drawable/btn_zh_dwn_backgr"/>
+                android:id="@+id/ZhDw1" android:background="@drawable/btn_zh_dwn_backgr" android:onClick="onBtnZh"/>
         <SeekBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -217,7 +217,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/tvZhUp"
-                android:id="@+id/button3" android:background="@drawable/btn_zh_up_backgr"/>
+                android:id="@+id/ZhUp2" android:background="@drawable/btn_zh_up_backgr" android:onClick="onBtnZh"/>
     </LinearLayout>
     <LinearLayout android:layout_row="6"
                   android:layout_column="1"
@@ -242,7 +242,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/tvZhDwn"
-                android:id="@+id/button4" android:background="@drawable/btn_zh_dwn_backgr"/>
+                android:id="@+id/ZhDw2" android:background="@drawable/btn_zh_dwn_backgr" android:onClick="onBtnZh"/>
     </LinearLayout>
     <LinearLayout android:layout_row="7"
                   android:layout_column="0"
@@ -254,7 +254,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/tvZhUp"
-                android:id="@+id/button6" android:background="@drawable/btn_zh_up_backgr"/>
+                android:id="@+id/ZhUp3" android:background="@drawable/btn_zh_up_backgr" android:onClick="onBtnZh"/>
     </LinearLayout>
     <LinearLayout android:layout_row="7"
                   android:layout_column="1"
@@ -279,7 +279,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/tvZhDwn"
-                android:id="@+id/button7" android:background="@drawable/btn_zh_dwn_backgr"/>
+                android:id="@+id/ZhDw3" android:background="@drawable/btn_zh_dwn_backgr" android:onClick="onBtnZh"/>
     </LinearLayout>
     <LinearLayout style="@style/Style_second"
                   android:layout_row="8"
@@ -298,6 +298,6 @@
                 android:background="#616161"
                 android:textColor="#F5F5F5"
                 android:text="@string/tvSysMess"
-                android:id="@+id/textView1"/>
+                android:id="@+id/tvErrMess"/>
     </LinearLayout>
 </GridLayout>

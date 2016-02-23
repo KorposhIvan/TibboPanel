@@ -1,10 +1,7 @@
 package ru.tibbo.TibboPanel;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +15,7 @@ public class MyActivity extends Activity {
 
     public final static String BROADCAST_ACTION = "ru.tibbo.TibboPanel";
     public final static String RMESSAGE = "RECEIVED";
-    TextView tvRT, tvST, tvSetTemp, tvStatus;
+    TextView tvRT, tvST, tvSetTemp, tvStatus, tvErrMess;
     ImageButton btnHFon,btnHFoff,btnModeMan,btnModeAuto;
     GridLayout modegridm, modegrida;
     BroadcastReceiver br;
@@ -29,7 +26,7 @@ public class MyActivity extends Activity {
     int MinSTemp = 17;
     String[] answer_controller = new String[16];
     String[] command_controller = new String[23];
-    String strTcmdcontr = "FF;001;%1$s;%2$s; ; ; ";
+    String strTcmdcontr = "FF;%1$s;%2$s;%3$s; ; ; ";
 
     /** Called when the activity is first created. */
     @Override
@@ -43,6 +40,7 @@ public class MyActivity extends Activity {
         tvRT = (TextView) findViewById(R.id.tvRoomTemp);
         tvST = (TextView) findViewById(R.id.tvStreetTemp);
         tvSetTemp = (TextView) findViewById(R.id.tvSetTemp);
+        tvErrMess = (TextView) findViewById(R.id.tvErrMess);
         btnHFon = (ImageButton) findViewById(R.id.imbtnHFon);
         btnHFoff = (ImageButton) findViewById(R.id.imbtnHFoff);
         btnModeMan = (ImageButton) findViewById(R.id.imbtnMdman);
@@ -74,9 +72,18 @@ public class MyActivity extends Activity {
         command_controller[21] = "21"; //Задать температуру
         command_controller[22] = "22"; //Получить заданную температуру
 
+        //------------------Get settings
+        SharedPreferences tibboSettings;
+        final String APP_PREFERENCES = "tibbosettings";
+        final String APP_PREFERENCES_IDROOM = "IDROOM";
+        tibboSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        if (tibboSettings.contains(APP_PREFERENCES_IDROOM)) {
+            answer_controller[1] = tibboSettings.getString(APP_PREFERENCES_IDROOM,"001");
+        }
+
         //Инициализация массива ответа. Потом заменить на значения из preferences
         answer_controller[0] = "FF"; //Символ начала пакета
-        answer_controller[1] = "001"; //ID комнаты
         answer_controller[2] = "00"; //Команда. 00 - получить все
         answer_controller[3] = "--"; //Температура улицы
         answer_controller[4] = "--"; //Температура комнаты
@@ -109,7 +116,7 @@ public class MyActivity extends Activity {
         // регистрируем (включаем) BroadcastReceiver
         registerReceiver(br, intFilt);
         Intent intent = new Intent(this,TibboService.class);
-        startService(intent);
+        startService(intent.putExtra("Command",String.format(strTcmdcontr,answer_controller[1],command_controller[0]," ")));
     }
 
 
@@ -166,7 +173,7 @@ public class MyActivity extends Activity {
 
     public void GuiUpdate(String[] param) {
         //Обновление экрана
-        String stat;
+        String stat,err;
         tvST.setText(String.format(strTemp,param[3]));
         tvRT.setText(String.format(strTemp,param[4]));
         stat = "Статус: ТП ";
@@ -207,10 +214,13 @@ public class MyActivity extends Activity {
                 btnHFoff.setEnabled(true);
             }
         }
+        err = param[13]+" " + param[14]+" " + param[15];
+        err = "Сообщения: "+err;
+        tvErrMess.setText(err);
     }
 
     public void onBtnHFon (View v) {
-        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[7]," ")));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],command_controller[7]," ")));
         //startService(new Intent(this,TibboService.class).putExtra("Command","TPon"));
         btnHFon.setBackgroundResource(R.drawable.tponen);
         btnHFoff.setBackgroundResource(R.drawable.tpoffdis);
@@ -219,7 +229,7 @@ public class MyActivity extends Activity {
     }
 
     public void onBtnHFoff (View v) {
-        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[8]," ")));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],command_controller[8]," ")));
         btnHFon.setBackgroundResource(R.drawable.tpondis);
         btnHFoff.setBackgroundResource(R.drawable.tpoffen);
         btnHFon.setEnabled(true);
@@ -227,7 +237,7 @@ public class MyActivity extends Activity {
     }
 
     public void onBtnModeauto (View v) {
-        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[20],"0")));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],command_controller[20],"0")));
         btnModeAuto.setBackgroundResource(R.drawable.mdaten);
         btnModeMan.setBackgroundResource(R.drawable.mdmandis);
         btnModeAuto.setEnabled(false);
@@ -237,7 +247,7 @@ public class MyActivity extends Activity {
     }
 
     public void onBtnModemanual (View v) {
-        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[20],"1")));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],command_controller[20],"1")));
         btnModeMan.setBackgroundResource(R.drawable.mdmanen);
         btnModeAuto.setBackgroundResource(R.drawable.mdatdis);
         btnModeMan.setEnabled(false);
@@ -260,7 +270,7 @@ public class MyActivity extends Activity {
             tempmess = String.format(goalTemp,CurrSTemp);
         }
         tvSetTemp.setText(tempmess);
-        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[21],CurrSTemp)));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],command_controller[21],CurrSTemp)));
     }
 
     public void onBtnSetTempDown (View v) {
@@ -277,6 +287,41 @@ public class MyActivity extends Activity {
             tempmess = String.format(goalTemp,CurrSTemp);
         }
         tvSetTemp.setText(tempmess);
-        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[21],CurrSTemp)));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],command_controller[21],CurrSTemp)));
+    }
+
+    public void onBtnZh (View v) {
+        String zhnum, cmd;
+        switch (v.getId()) {
+            case R.id.ZhUp1:
+                zhnum = "1";
+                cmd = command_controller[13];
+                break;
+            case R.id.ZhUp2:
+                zhnum = "2";
+                cmd = command_controller[13];
+                break;
+            case R.id.ZhUp3:
+                zhnum = "3";
+                cmd = command_controller[13];
+                break;
+            case R.id.ZhDw1:
+                zhnum = "1";
+                cmd = command_controller[14];
+                break;
+            case R.id.ZhDw2:
+                zhnum = "2";
+                cmd = command_controller[14];
+                break;
+            case R.id.ZhDw3:
+                zhnum = "3";
+                cmd = command_controller[14];
+                break;
+            default:
+                zhnum = "0";
+                cmd = command_controller[14];
+                break;
+        }
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],cmd,zhnum)));
     }
 }
