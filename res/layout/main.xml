@@ -32,7 +32,7 @@
                 android:text="@string/tvStreetT"
                 style="@style/Style_second_text" android:typeface="normal"/>
         <TextView
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/tvStreetTemp" style="@style/Style_main_text" android:typeface="normal"/>
     </LinearLayout>
     <LinearLayout
