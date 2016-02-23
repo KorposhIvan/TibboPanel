@@ -101,7 +101,7 @@
                       android:layout_height="70dp"
                       android:layout_gravity="center_horizontal|center_vertical"
                       android:layout_marginBottom="14dp"
-                      android:text="+25.5 C" android:id="@+id/tvSetTemp"/>
+                      android:id="@+id/tvSetTemp"/>
             <ImageButton android:layout_column="0"
                          android:layout_row="1"
                          android:layout_gravity="center_horizontal|top" android:layout_marginStart="5dp"
@@ -162,7 +162,7 @@
     <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Больше воздуха"
+            android:text="@string/tvMoreAir"
             android:id="@+id/button5"/>
     </LinearLayout>
     <LinearLayout android:layout_row="5"
@@ -174,6 +174,7 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:text="@string/tvZhUp"
                 android:id="@+id/button" android:background="@drawable/btn_zh_up_backgr"/>
     </LinearLayout>
     <LinearLayout android:layout_row="5"
@@ -184,8 +185,9 @@
         <TextView android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:textAppearance="?android:attr/textAppearanceMedium"
-                  android:text="Жалюзи №1"
-                  android:gravity="center"/>
+                  android:text="@string/tvZh1"
+                  android:layout_gravity="center_horizontal"
+                  android:gravity="center|center_horizontal"/>
 
     </LinearLayout>
     <LinearLayout android:layout_row="5"
@@ -198,6 +200,7 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:text="@string/tvZhDwn"
                 android:id="@+id/button2" android:background="@drawable/btn_zh_dwn_backgr"/>
         <SeekBar
                 android:layout_width="wrap_content"
@@ -213,7 +216,7 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Up"
+                android:text="@string/tvZhUp"
                 android:id="@+id/button3" android:background="@drawable/btn_zh_up_backgr"/>
     </LinearLayout>
     <LinearLayout android:layout_row="6"
@@ -224,7 +227,7 @@
         <TextView android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:textAppearance="?android:attr/textAppearanceMedium"
-                  android:text="Жалюзи №2"
+                  android:text="@string/tvZh2"
                   android:gravity="center"/>
 
     </LinearLayout>
@@ -238,7 +241,7 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Down"
+                android:text="@string/tvZhDwn"
                 android:id="@+id/button4" android:background="@drawable/btn_zh_dwn_backgr"/>
     </LinearLayout>
     <LinearLayout android:layout_row="7"
@@ -250,7 +253,7 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Up"
+                android:text="@string/tvZhUp"
                 android:id="@+id/button6" android:background="@drawable/btn_zh_up_backgr"/>
     </LinearLayout>
     <LinearLayout android:layout_row="7"
@@ -261,7 +264,7 @@
         <TextView android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:textAppearance="?android:attr/textAppearanceMedium"
-                  android:text="Жалюзи №3"
+                  android:text="@string/tvZh3"
                   android:gravity="center"/>
 
     </LinearLayout>
@@ -275,7 +278,7 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Down"
+                android:text="@string/tvZhDwn"
                 android:id="@+id/button7" android:background="@drawable/btn_zh_dwn_backgr"/>
     </LinearLayout>
     <LinearLayout style="@style/Style_second"
@@ -294,7 +297,7 @@
                 android:layout_marginStart="2dp"
                 android:background="#616161"
                 android:textColor="#F5F5F5"
-                android:text="Сообщения:"
+                android:text="@string/tvSysMess"
                 android:id="@+id/textView1"/>
     </LinearLayout>
 </GridLayout>

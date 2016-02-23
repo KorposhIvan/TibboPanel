@@ -260,7 +260,7 @@ public class MyActivity extends Activity {
             tempmess = String.format(goalTemp,CurrSTemp);
         }
         tvSetTemp.setText(tempmess);
-        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[21],tempmess)));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[21],CurrSTemp)));
     }
 
     public void onBtnSetTempDown (View v) {
@@ -277,6 +277,6 @@ public class MyActivity extends Activity {
             tempmess = String.format(goalTemp,CurrSTemp);
         }
         tvSetTemp.setText(tempmess);
-        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[21],tempmess)));
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,command_controller[21],CurrSTemp)));
     }
 }

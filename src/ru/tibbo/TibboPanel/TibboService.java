@@ -18,33 +18,33 @@ import android.os.IBinder;
 import android.app.PendingIntent;
 
 public class TibboService extends Service {
-    // Идентификатор уведомления
-    private static final int NOTIFY_ID = 101;
-    ExecutorService es;
-    private TCPClient mTcpClient;
-    boolean RESTARTSERVICE=false;
-    public String sendmess;
+    //Служба будет в фоне опрашивать контроллер и будет всегда перезапускаться
+    private static final int NOTIFY_ID = 101; //Идентификатор уведомления
+    ExecutorService es; //Выполнитель службы (хэндлер)
+    private TCPClient mTcpClient; //Экземпляр класса TCP клиента
+    boolean RESTARTSERVICE=false; //Флаг рестарта службы
 
     public void onCreate() {
         super.onCreate();
-        es = Executors.newFixedThreadPool(4);
-        ListenRun lr = new ListenRun();
-        SendRun sr = new SendRun();
-        es.execute(lr);
+        es = Executors.newFixedThreadPool(4); //Определяем 4 потока для выполнения комманд
+        ListenRun lr = new ListenRun(); //Объявляем Runnable поток для слушателя TCP
+        SendRun sr = new SendRun(); //Обявляем Runnable поток для отсылки сообщений
+        es.execute(lr); //Тут и ниже запускаем потоки
         es.execute(sr);
     }
 
     public void onDestroy() {
         super.onDestroy();
-        if (RESTARTSERVICE == true) {
+        if (RESTARTSERVICE) {
             mTcpClient.stopClient();
             startService(new Intent(this,TibboService.class));
+            //Перезапуск службы. Работаем только при разрыве. Нужно продумать бесконечный перезапуск.
         }
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (mTcpClient != null) {
-            mTcpClient.sendMessage(intent.getStringExtra("Command"));
+            mTcpClient.sendMessage(intent.getStringExtra("Command")); //Отсылаем команду (пришла из MyActivity)
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -101,14 +101,15 @@ public class TibboService extends Service {
 
             mTcpClient = new TCPClient(new TCPClient.OnMessageReceived() {
                 @Override
-                //here the messageReceived method is implemented
+                //Здесь включаем интерфейс класса TCP
                 public void messageReceived(String message) {
-                    //here we have received message we should do smt
+                    //Получаем сообщение от TCP, чтобы его обработать
                     final Intent intent = new Intent(MyActivity.BROADCAST_ACTION);
-                    intent.putExtra(MyActivity.RMESSAGE,message);
+                    intent.putExtra(MyActivity.RMESSAGE,message); //Передаем сообщение в активити
                     sendBroadcast(intent);
-                    if (message.equals("Dry in podval;d")) {sendNotif();}
+                    if (message.equals("Dry in podval;d")) {sendNotif();} //Нотификация на протечку. Изменить
                     if (message.equals("Socket is closed")) {RESTARTSERVICE = true; stopSelf();}
+                    //Вот здесь думаем. Как перезапустить иначе?
                 }
             },strIP,Integer.parseInt(strPort));
             mTcpClient.run();
@@ -123,7 +124,7 @@ public class TibboService extends Service {
             while (true) {
                 try {
                     if (mTcpClient!=null) {
-                        mTcpClient.sendMessage("getAll");
+                        mTcpClient.sendMessage("getAll"); //Посылка команды получить все. На практике нужно изменить
                         TimeUnit.SECONDS.sleep(15);
                     }
                 } catch (InterruptedException e) {
