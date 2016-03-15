@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridLayout;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.*;
 
 
 public class MyActivity extends Activity {
@@ -17,8 +15,10 @@ public class MyActivity extends Activity {
     public final static String RMESSAGE = "RECEIVED";
     TextView tvRT, tvST, tvSetTemp, tvStatus, tvErrMess;
     ImageButton btnHFon,btnHFoff,btnModeMan,btnModeAuto;
-    GridLayout modegridm, modegrida;
+    Switch swButton;
+    GridLayout modegridm, modegridms, modegrida;
     BroadcastReceiver br;
+    Boolean SumWin = false; //false is winter, true is summer
     String goalTemp = "+%1$d C";
     String strTemp = "%1$s C";
     int CurrSTemp = 22;
@@ -35,6 +35,7 @@ public class MyActivity extends Activity {
         setContentView(R.layout.main);
 
         modegridm = (GridLayout) findViewById(R.id.modegridm);
+        modegridms = (GridLayout) findViewById(R.id.modegridms);
         modegrida = (GridLayout) findViewById(R.id.modegrida);
         tvStatus = (TextView) findViewById(R.id.tvStatus);
         tvRT = (TextView) findViewById(R.id.tvRoomTemp);
@@ -45,6 +46,18 @@ public class MyActivity extends Activity {
         btnHFoff = (ImageButton) findViewById(R.id.imbtnHFoff);
         btnModeMan = (ImageButton) findViewById(R.id.imbtnMdman);
         btnModeAuto = (ImageButton) findViewById(R.id.imbtnMdauto);
+        swButton = (Switch) findViewById(R.id.switch1);
+        swButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    SumWin = true;
+                }
+                else {
+                    SumWin = false;
+                }
+            }
+        });
+
 
         //Команды для контроллера
 
@@ -199,7 +212,7 @@ public class MyActivity extends Activity {
             btnModeAuto.setBackgroundResource(R.drawable.mdatdis);
             btnModeMan.setEnabled(false);
             btnModeAuto.setEnabled(true);
-            modegridm.setVisibility(modegridm.VISIBLE);
+            modegridm.setVisibility(modegrida.VISIBLE);
             modegrida.setVisibility(modegridm.GONE);
             if (param[10].equals("0")) {
                 btnHFon.setBackgroundResource(R.drawable.tpondis);
@@ -242,8 +255,9 @@ public class MyActivity extends Activity {
         btnModeMan.setBackgroundResource(R.drawable.mdmandis);
         btnModeAuto.setEnabled(false);
         btnModeMan.setEnabled(true);
-        modegrida.setVisibility(modegridm.VISIBLE);
-        modegridm.setVisibility(modegrida.GONE);
+        modegrida.setVisibility(modegrida.VISIBLE);
+        modegridm.setVisibility(modegridm.GONE);
+        modegridms.setVisibility(modegridms.GONE);
     }
 
     public void onBtnModemanual (View v) {
@@ -252,8 +266,12 @@ public class MyActivity extends Activity {
         btnModeAuto.setBackgroundResource(R.drawable.mdatdis);
         btnModeMan.setEnabled(false);
         btnModeAuto.setEnabled(true);
-        modegridm.setVisibility(modegridm.VISIBLE);
-        modegrida.setVisibility(modegridm.GONE);
+        if (SumWin) {
+            modegridms.setVisibility(modegridms.VISIBLE);
+        } else {
+            modegridm.setVisibility(modegridm.VISIBLE);
+        }
+        modegrida.setVisibility(modegrida.GONE);
     }
 
     public void onBtnSetTempUp (View v) {
@@ -324,4 +342,29 @@ public class MyActivity extends Activity {
         }
         startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],cmd,zhnum)));
     }
+
+    public void onFC(View v) {
+        // по id определеяем кнопку, вызвавшую этот обработчик
+        String cmd = command_controller[12];
+        switch (v.getId()) {
+            case R.id.btnFCoff:
+                // Выкл фанкойл
+                cmd = command_controller[12];
+                break;
+            case R.id.btnFCon1:
+                // Режим 1
+                cmd = command_controller[9];
+                break;
+            case R.id.btnFCon2:
+                // Режим 2
+                cmd = command_controller[10];
+                break;
+            case R.id.btnFCon3:
+                // Режим 3
+                cmd = command_controller[11];
+                break;
+        }
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],cmd," ")));
+    }
+
 }

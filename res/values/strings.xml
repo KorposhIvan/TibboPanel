@@ -5,6 +5,7 @@
     <string name="tvRoomT">Комната:</string>
     <string name="tvModeControl">Режим:</string>
     <string name="tvHeatFloor">Теплый пол:</string>
+    <string name="tvFancoil">Фанкойл:</string>
     <string name="tvStatus">Статус:</string>
     <string name="tvSetTemp">Заданная температура:</string>
     <string name="tvMoreAir">Больше воздуха</string>
