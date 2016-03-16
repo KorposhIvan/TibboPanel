@@ -15,10 +15,8 @@ public class MyActivity extends Activity {
     public final static String RMESSAGE = "RECEIVED";
     TextView tvRT, tvST, tvSetTemp, tvStatus, tvErrMess;
     ImageButton btnHFon,btnHFoff,btnModeMan,btnModeAuto;
-    Switch swButton;
     GridLayout modegridm, modegridms, modegrida;
     BroadcastReceiver br;
-    Boolean SumWin = false; //false is winter, true is summer
     String goalTemp = "+%1$d C";
     String strTemp = "%1$s C";
     int CurrSTemp = 22;
@@ -46,18 +44,6 @@ public class MyActivity extends Activity {
         btnHFoff = (ImageButton) findViewById(R.id.imbtnHFoff);
         btnModeMan = (ImageButton) findViewById(R.id.imbtnMdman);
         btnModeAuto = (ImageButton) findViewById(R.id.imbtnMdauto);
-        swButton = (Switch) findViewById(R.id.switch1);
-        swButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    SumWin = true;
-                }
-                else {
-                    SumWin = false;
-                }
-            }
-        });
-
 
         //Команды для контроллера
 
@@ -192,41 +178,52 @@ public class MyActivity extends Activity {
         stat = "Статус: ТП ";
         if (param[10].equals("0")) {stat += "выкл; ";} else {stat += "вкл; ";}
         stat += "Конд ";
-        if (param[11].equals("0")) {stat += "выкл; ";} else {stat += "вкл; ";}
+        if (param[11].equals("0")) {stat += "выкл; ";} else {stat += "вкл "+param[11]+"; ";}
         stat += "Пр ";
         if (param[12].equals("0")) {stat += "выкл; " ;} else {stat += "вкл; ";}
         tvStatus.setText(stat);
         CurrSTemp = Integer.parseInt(param[5]);
+
         //Если режим автомата (0) или режим ручной (1)
         if (param[7].equals("0")) {
             btnModeAuto.setBackgroundResource(R.drawable.mdaten);
             btnModeMan.setBackgroundResource(R.drawable.mdmandis);
             btnModeAuto.setEnabled(false);
             btnModeMan.setEnabled(true);
-            modegrida.setVisibility(modegridm.VISIBLE);
-            modegridm.setVisibility(modegrida.GONE);
+            modegrida.setVisibility(modegrida.VISIBLE);
+            modegridm.setVisibility(modegridm.GONE);
             tvSetTemp.setText(String.format(goalTemp,CurrSTemp));
-        }
-        else {
+        } else {
             btnModeMan.setBackgroundResource(R.drawable.mdmanen);
             btnModeAuto.setBackgroundResource(R.drawable.mdatdis);
             btnModeMan.setEnabled(false);
             btnModeAuto.setEnabled(true);
-            modegridm.setVisibility(modegrida.VISIBLE);
-            modegrida.setVisibility(modegridm.GONE);
-            if (param[10].equals("0")) {
-                btnHFon.setBackgroundResource(R.drawable.tpondis);
-                btnHFoff.setBackgroundResource(R.drawable.tpoffen);
-                btnHFon.setEnabled(true);
-                btnHFoff.setEnabled(false);
-            }
-            else {
-                btnHFon.setBackgroundResource(R.drawable.tponen);
-                btnHFoff.setBackgroundResource(R.drawable.tpoffdis);
-                btnHFon.setEnabled(false);
-                btnHFoff.setEnabled(true);
+
+            //Режим лето (0) или зима (1)
+            if (param[8].equals("0")) {
+                modegrida.setVisibility(modegrida.GONE);
+                modegridm.setVisibility(modegridm.GONE);
+                modegridms.setVisibility(modegridms.VISIBLE);
+            } else {
+                modegridm.setVisibility(modegridm.VISIBLE);
+                modegrida.setVisibility(modegrida.GONE);
+                modegridms.setVisibility(modegridms.GONE);
+
+                //Теплый пол включен (1) или выключен (0)
+                if (param[10].equals("0")) {
+                    btnHFon.setBackgroundResource(R.drawable.tpondis);
+                    btnHFoff.setBackgroundResource(R.drawable.tpoffen);
+                    btnHFon.setEnabled(true);
+                    btnHFoff.setEnabled(false);
+                } else {
+                    btnHFon.setBackgroundResource(R.drawable.tponen);
+                    btnHFoff.setBackgroundResource(R.drawable.tpoffdis);
+                    btnHFon.setEnabled(false);
+                    btnHFoff.setEnabled(true);
+                }
             }
         }
+
         err = param[13]+" " + param[14]+" " + param[15];
         err = "Сообщения: "+err;
         tvErrMess.setText(err);
@@ -266,7 +263,7 @@ public class MyActivity extends Activity {
         btnModeAuto.setBackgroundResource(R.drawable.mdatdis);
         btnModeMan.setEnabled(false);
         btnModeAuto.setEnabled(true);
-        if (SumWin) {
+        if (answer_controller[8].equals(0)) {
             modegridms.setVisibility(modegridms.VISIBLE);
         } else {
             modegridm.setVisibility(modegridm.VISIBLE);
