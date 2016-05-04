@@ -320,6 +320,10 @@ public class MyActivity extends Activity {
                 zhnum = "3";
                 cmd = command_controller[13];
                 break;
+            case R.id.ZhUp4:
+                zhnum = "4";
+                cmd = command_controller[13];
+                break;
             case R.id.ZhDw1:
                 zhnum = "1";
                 cmd = command_controller[14];
@@ -330,6 +334,10 @@ public class MyActivity extends Activity {
                 break;
             case R.id.ZhDw3:
                 zhnum = "3";
+                cmd = command_controller[14];
+                break;
+            case R.id.ZhDw4:
+                zhnum = "4";
                 cmd = command_controller[14];
                 break;
             default:

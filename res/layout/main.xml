@@ -4,7 +4,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:columnCount="3"
-            android:rowCount="9"
+            android:rowCount="10"
             android:orientation="horizontal" style="@style/Style_main">
     <LinearLayout
             style="@style/Style_second"
@@ -325,8 +325,45 @@
                 android:text="@string/tvZhDwn"
                 android:id="@+id/ZhDw3" android:background="@drawable/btn_zh_dwn_backgr" android:onClick="onBtnZh"/>
     </LinearLayout>
+    <LinearLayout android:layout_row="8"
+                  android:layout_column="0"
+                  style="@style/Style_second"
+                  android:layout_marginTop="7dp"
+                  android:layout_height="30dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvZhUp"
+                android:id="@+id/ZhUp4" android:background="@drawable/btn_zh_up_backgr" android:onClick="onBtnZh"/>
+    </LinearLayout>
+    <LinearLayout android:layout_row="8"
+                  android:layout_column="1"
+                  android:layout_marginTop="7dp"
+                  android:layout_width="110dp"
+                  android:layout_height="30dp">
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:text="@string/tvZh4"
+                  android:gravity="center"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_row="8"
+                  android:layout_column="2"
+                  style="@style/Style_second"
+                  android:layout_marginTop="7dp"
+                  android:layout_marginEnd="9dp"
+                  android:layout_height="30dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvZhDwn"
+                android:id="@+id/ZhDw4" android:background="@drawable/btn_zh_dwn_backgr" android:onClick="onBtnZh"/>
+    </LinearLayout>
     <LinearLayout style="@style/Style_second"
-                  android:layout_row="8"
+                  android:layout_row="9"
                   android:layout_column="0"
                   android:layout_columnSpan="3"
                   android:layout_width="match_parent"
