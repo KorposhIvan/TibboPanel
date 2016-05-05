@@ -16,4 +16,11 @@
     <string name="tvZhUp">Вверх&#160;&#160;&#160;</string>
     <string name="tvZhDwn">&#160;Вниз</string>
     <string name="tvSysMess">Сообщения:</string>
+    <string name="tvAbout">О программе:</string>
+    <string name="tvVersion">Весрия: 1.0.0</string>
+    <string name="tvVerDate">Дата выхода: 05.05.2016</string>
+    <string name="tvDevelop">Разработчик: ООО "СК-Трейд"</string>
+    <string name="tvDisclaimer">Отказ от ответственности: данное программное обеспечение распространяется как есть.
+        Компания-разрабочтик не несет никакой ответственности за прямой или косвенный ущерб, причененный
+        при использовании данного ПО...</string>
 </resources>
