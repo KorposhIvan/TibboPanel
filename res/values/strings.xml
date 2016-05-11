@@ -23,4 +23,8 @@
     <string name="tvDisclaimer">Отказ от ответственности: данное программное обеспечение распространяется как есть.
         Компания-разрабочтик не несет никакой ответственности за прямой или косвенный ущерб, причененный
         при использовании данного ПО...</string>
+    <string name="tvSetIp">IP адрес контроллера:</string>
+    <string name="tvSetIpDefault">192.168.1.100</string>
+    <string name="tvSetPort">TCP порт контроллера:</string>
+    <string name="tvSetIdRoom">ID комнаты:</string>
 </resources>

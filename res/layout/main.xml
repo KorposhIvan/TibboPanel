@@ -211,9 +211,8 @@
     </LinearLayout>
     <LinearLayout android:layout_row="5"
                   android:layout_column="0"
-                  style="@style/Style_second"
-                  android:layout_marginTop="7dp"
-                  android:layout_height="30dp">
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp">
 
         <Button
                 android:layout_width="match_parent"
@@ -224,8 +223,7 @@
     <LinearLayout android:layout_row="5"
                   android:layout_column="1"
                   android:layout_marginTop="7dp"
-                  android:layout_width="110dp"
-                  android:layout_height="30dp">
+                  style="@style/Style_second_zh">
         <TextView android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:textAppearance="?android:attr/textAppearanceMedium"
@@ -236,10 +234,9 @@
     </LinearLayout>
     <LinearLayout android:layout_row="5"
                   android:layout_column="2"
-                  style="@style/Style_second"
+                  style="@style/Style_second_zh"
                   android:layout_marginTop="7dp"
-                  android:layout_marginEnd="9dp"
-                  android:layout_height="30dp">
+                  android:layout_marginEnd="9dp">
 
         <Button
                 android:layout_width="match_parent"
@@ -253,9 +250,8 @@
     </LinearLayout>
     <LinearLayout android:layout_row="6"
                   android:layout_column="0"
-                  style="@style/Style_second"
-                  android:layout_marginTop="7dp"
-                  android:layout_height="30dp">
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp">
 
         <Button
                 android:layout_width="match_parent"
@@ -266,8 +262,7 @@
     <LinearLayout android:layout_row="6"
                   android:layout_column="1"
                   android:layout_marginTop="7dp"
-                  android:layout_width="110dp"
-                  android:layout_height="30dp">
+                  style="@style/Style_second_zh">
         <TextView android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:textAppearance="?android:attr/textAppearanceMedium"
@@ -277,10 +272,9 @@
     </LinearLayout>
     <LinearLayout android:layout_row="6"
                   android:layout_column="2"
-                  style="@style/Style_second"
+                  style="@style/Style_second_zh"
                   android:layout_marginTop="7dp"
-                  android:layout_marginEnd="9dp"
-                  android:layout_height="30dp">
+                  android:layout_marginEnd="9dp">
 
         <Button
                 android:layout_width="match_parent"
@@ -290,9 +284,8 @@
     </LinearLayout>
     <LinearLayout android:layout_row="7"
                   android:layout_column="0"
-                  style="@style/Style_second"
-                  android:layout_marginTop="7dp"
-                  android:layout_height="30dp">
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp">
 
         <Button
                 android:layout_width="match_parent"
@@ -303,8 +296,7 @@
     <LinearLayout android:layout_row="7"
                   android:layout_column="1"
                   android:layout_marginTop="7dp"
-                  android:layout_width="110dp"
-                  android:layout_height="30dp">
+                  style="@style/Style_second_zh">
         <TextView android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:textAppearance="?android:attr/textAppearanceMedium"
@@ -314,10 +306,9 @@
     </LinearLayout>
     <LinearLayout android:layout_row="7"
                   android:layout_column="2"
-                  style="@style/Style_second"
+                  style="@style/Style_second_zh"
                   android:layout_marginTop="7dp"
-                  android:layout_marginEnd="9dp"
-                  android:layout_height="30dp">
+                  android:layout_marginEnd="9dp">
 
         <Button
                 android:layout_width="match_parent"
@@ -327,9 +318,8 @@
     </LinearLayout>
     <LinearLayout android:layout_row="8"
                   android:layout_column="0"
-                  style="@style/Style_second"
-                  android:layout_marginTop="7dp"
-                  android:layout_height="30dp">
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp">
 
         <Button
                 android:layout_width="match_parent"
@@ -340,8 +330,7 @@
     <LinearLayout android:layout_row="8"
                   android:layout_column="1"
                   android:layout_marginTop="7dp"
-                  android:layout_width="110dp"
-                  android:layout_height="30dp">
+                  style="@style/Style_second_zh">
         <TextView android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:textAppearance="?android:attr/textAppearanceMedium"
@@ -351,10 +340,9 @@
     </LinearLayout>
     <LinearLayout android:layout_row="8"
                   android:layout_column="2"
-                  style="@style/Style_second"
+                  style="@style/Style_second_zh"
                   android:layout_marginTop="7dp"
-                  android:layout_marginEnd="9dp"
-                  android:layout_height="30dp">
+                  android:layout_marginEnd="9dp">
 
         <Button
                 android:layout_width="match_parent"
@@ -368,7 +356,7 @@
                   android:layout_columnSpan="3"
                   android:layout_width="match_parent"
                   android:background="#616161"
-                  android:layout_height="100dp"
+                  android:layout_height="wrap_content"
                   android:layout_marginEnd="9dp"
                   android:layout_marginBottom="5dp">
         <TextView
