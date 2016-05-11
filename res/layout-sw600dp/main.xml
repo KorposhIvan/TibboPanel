@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:columnCount="3"
+            android:rowCount="10"
+            android:orientation="horizontal" style="@style/Style_main">
+    <LinearLayout
+            style="@style/Style_second"
+            android:background="#616161"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="9dp"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_columnSpan="3">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginStart="2dp"
+                android:background="#616161"
+                android:textColor="#F5F5F5"
+                android:text="@string/tvStatus"
+                android:id="@+id/tvStatus"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_row="1"
+            android:layout_column="0"
+            style="@style/Style_second">
+        <TextView
+                android:text="@string/tvStreetT"
+                style="@style/Style_second_text" android:typeface="normal"/>
+        <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="30dp"
+                android:id="@+id/tvStreetTemp" style="@style/Style_main_text" android:typeface="normal"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_row="1"
+            android:layout_column="1"
+            style="@style/Style_second">
+        <TextView
+                android:text="@string/tvRoomT"
+                style="@style/Style_second_text"/>
+        <TextView
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="30dp"
+                android:id="@+id/tvRoomTemp" style="@style/Style_main_text" android:typeface="normal"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_row="1"
+            android:layout_column="2"
+            android:layout_rowSpan="2"
+            android:layout_marginEnd="9dp" style="@style/Style_second">
+        <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="1"
+                android:rowCount="3">
+        <TextView
+                android:text="@string/tvModeControl"
+                android:layout_column="0"
+                android:layout_row="0"
+                style="@style/Style_second_text"/>
+        <ImageButton
+                android:layout_width="104dp"
+                android:layout_column="0"
+                android:layout_row="1"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_height="136dp"
+                android:id="@+id/imbtnMdauto" android:background="@drawable/mdaten" android:onClick="onBtnModeauto"/>
+        <ImageButton
+                android:layout_width="104dp"
+                android:layout_column="0"
+                android:layout_row="2"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_height="136dp"
+                android:id="@+id/imbtnMdman" android:background="@drawable/mdmandis" android:onClick="onBtnModemanual"/>
+        </GridLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_columnSpan="2" style="@style/Style_second">
+        <GridLayout android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:id="@+id/modegrida"
+                    android:rowCount="3"
+                    android:columnCount="2">
+            <TextView android:text="@string/tvSetTemp"
+                      android:layout_row="0"
+                      android:layout_column="0"
+                      android:layout_columnSpan="2"
+                      style="@style/Style_second_text"/>
+            <TextView android:layout_row="1"
+                      android:layout_column="1"
+                      android:layout_rowSpan="2"
+                      style="@style/Style_main_text"
+                      android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:typeface="normal"
+                      android:layout_width="100dp"
+                      android:layout_height="70dp"
+                      android:layout_gravity="center_horizontal|center_vertical"
+                      android:layout_marginBottom="14dp"
+                      android:id="@+id/tvSetTemp"/>
+            <ImageButton android:layout_column="0"
+                         android:layout_row="1"
+                         android:layout_gravity="center_horizontal|top" android:layout_marginStart="5dp"
+                         android:layout_width="192dp" android:layout_height="48dp"
+                         android:background="@drawable/btn_settem_background" android:onClick="onBtnSetTempUp"/>
+            <ImageButton android:layout_column="0"
+                         android:layout_row="2"
+                         android:layout_gravity="center_horizontal|bottom"
+                         android:layout_marginStart="5dp" android:layout_marginBottom="15dp"
+                         android:layout_width="192dp" android:layout_height="48dp"
+                         android:background="@drawable/btn_settemp_dw_backgr" android:onClick="onBtnSetTempDown"/>
+        </GridLayout>
+        <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="2"
+                android:rowCount="2" android:id="@+id/modegridm" android:visibility="invisible">
+            <TextView
+                android:text="@string/tvHeatFloor"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_columnSpan="2"
+                style="@style/Style_second_text"/>
+            <ImageButton
+                    android:layout_width="160dp"
+                    android:layout_height="95dp"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:layout_marginLeft="32dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/imbtnHFon" android:background="@drawable/tpondis" android:onClick="onBtnHFon"/>
+            <ImageButton
+                    android:layout_width="160dp"
+                    android:layout_height="95dp"
+                    android:layout_row="1"
+                    android:layout_column="1"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/imbtnHFoff" android:layout_gravity="left|center_vertical" android:onClick="onBtnHFoff"
+                    android:background="@drawable/tpoffen"/>
+        </GridLayout>
+        <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="4"
+                android:rowCount="2" android:id="@+id/modegridms" android:visibility="invisible">
+            <TextView
+                    android:text="@string/tvFancoil"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_columnSpan="4"
+                    style="@style/Style_second_text"/>
+            <Button android:layout_width="97dp"
+                    android:layout_height="60dp"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:textSize="15dp"
+                    android:text="Off"
+                    android:onClick="onFC"
+                    android:layout_marginBottom="30dp"
+                    android:id="@+id/btnFCoff" android:layout_gravity="center_horizontal|center_vertical"/>
+            <Button android:layout_width="97dp"
+                    android:layout_height="60dp"
+                    android:layout_row="1"
+                    android:layout_column="1"
+                    android:textSize="15dp"
+                    android:text="1"
+                    android:onClick="onFC"
+                    android:layout_marginBottom="30dp"
+                    android:id="@+id/btnFCon1" android:layout_gravity="center_horizontal|center_vertical"/>
+            <Button android:layout_width="97dp"
+                    android:layout_height="60dp"
+                    android:layout_row="1"
+                    android:layout_column="2"
+                    android:textSize="15dp"
+                    android:text="2"
+                    android:onClick="onFC"
+                    android:layout_marginBottom="30dp"
+                    android:id="@+id/btnFCon2" android:layout_gravity="center_horizontal|center_vertical"/>
+            <Button android:layout_width="97dp"
+                    android:layout_height="60dp"
+                    android:layout_row="1"
+                    android:layout_column="3"
+                    android:textSize="15dp"
+                    android:text="3"
+                    android:onClick="onFC"
+                    android:layout_marginBottom="30dp"
+                    android:id="@+id/btnFCon3" android:layout_gravity="center_horizontal|center_vertical"/>
+        </GridLayout>
+    </LinearLayout>
+    <View android:layout_row="3"
+          android:layout_column="0"
+          android:layout_columnSpan="3"
+          android:layout_width="fill_parent"
+          android:layout_marginTop="5dp"
+          android:layout_marginStart="5dp"
+          android:layout_marginEnd="5dp"
+          android:layout_height="2dp"
+          android:background="#616161" />
+    <LinearLayout android:layout_row="4"
+                  android:layout_column="0"
+                  android:layout_columnSpan="3"
+                  style="@style/Style_second"
+                  android:layout_marginTop="7dp"
+                  android:layout_marginEnd="9dp"
+                  android:layout_height="60dp">
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/tvMoreAir"
+            android:id="@+id/button5"/>
+    </LinearLayout>
+    <LinearLayout android:layout_row="5"
+                  android:layout_column="0"
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvZhUp"
+                android:id="@+id/ZhUp1" android:background="@drawable/btn_zh_up_backgr" android:onClick="onBtnZh"/>
+    </LinearLayout>
+    <LinearLayout android:layout_row="5"
+                  android:layout_column="1"
+                  android:layout_marginTop="7dp"
+                  style="@style/Style_second_zh">
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:text="@string/tvZh1"
+                  android:layout_gravity="center_horizontal"
+                  android:gravity="center|center_horizontal"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_row="5"
+                  android:layout_column="2"
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp"
+                  android:layout_marginEnd="9dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvZhDwn"
+                android:id="@+id/ZhDw1" android:background="@drawable/btn_zh_dwn_backgr" android:onClick="onBtnZh"/>
+        <SeekBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar" android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout android:layout_row="6"
+                  android:layout_column="0"
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvZhUp"
+                android:id="@+id/ZhUp2" android:background="@drawable/btn_zh_up_backgr" android:onClick="onBtnZh"/>
+    </LinearLayout>
+    <LinearLayout android:layout_row="6"
+                  android:layout_column="1"
+                  android:layout_marginTop="7dp"
+                  style="@style/Style_second_zh">
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:text="@string/tvZh2"
+                  android:gravity="center"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_row="6"
+                  android:layout_column="2"
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp"
+                  android:layout_marginEnd="9dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvZhDwn"
+                android:id="@+id/ZhDw2" android:background="@drawable/btn_zh_dwn_backgr" android:onClick="onBtnZh"/>
+    </LinearLayout>
+    <LinearLayout android:layout_row="7"
+                  android:layout_column="0"
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvZhUp"
+                android:id="@+id/ZhUp3" android:background="@drawable/btn_zh_up_backgr" android:onClick="onBtnZh"/>
+    </LinearLayout>
+    <LinearLayout android:layout_row="7"
+                  android:layout_column="1"
+                  android:layout_marginTop="7dp"
+                  style="@style/Style_second_zh">
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:text="@string/tvZh3"
+                  android:gravity="center"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_row="7"
+                  android:layout_column="2"
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp"
+                  android:layout_marginEnd="9dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvZhDwn"
+                android:id="@+id/ZhDw3" android:background="@drawable/btn_zh_dwn_backgr" android:onClick="onBtnZh"/>
+    </LinearLayout>
+    <LinearLayout android:layout_row="8"
+                  android:layout_column="0"
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvZhUp"
+                android:id="@+id/ZhUp4" android:background="@drawable/btn_zh_up_backgr" android:onClick="onBtnZh"/>
+    </LinearLayout>
+    <LinearLayout android:layout_row="8"
+                  android:layout_column="1"
+                  android:layout_marginTop="7dp"
+                  style="@style/Style_second_zh">
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:text="@string/tvZh4"
+                  android:gravity="center"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_row="8"
+                  android:layout_column="2"
+                  style="@style/Style_second_zh"
+                  android:layout_marginTop="7dp"
+                  android:layout_marginEnd="9dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvZhDwn"
+                android:id="@+id/ZhDw4" android:background="@drawable/btn_zh_dwn_backgr" android:onClick="onBtnZh"/>
+    </LinearLayout>
+    <LinearLayout style="@style/Style_second"
+                  android:layout_row="9"
+                  android:layout_column="0"
+                  android:layout_columnSpan="3"
+                  android:layout_width="match_parent"
+                  android:background="#616161"
+                  android:layout_height="100dp"
+                  android:layout_marginEnd="9dp"
+                  android:layout_marginBottom="5dp">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginStart="2dp"
+                android:background="#616161"
+                android:textColor="#F5F5F5"
+                android:text="@string/tvSysMess"
+                android:id="@+id/tvErrMess"/>
+    </LinearLayout>
+</GridLayout>
