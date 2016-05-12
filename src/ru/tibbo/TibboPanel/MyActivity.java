@@ -15,6 +15,7 @@ public class MyActivity extends Activity {
     public final static String RMESSAGE = "RECEIVED";
     TextView tvRT, tvST, tvSetTemp, tvStatus, tvErrMess;
     ImageButton btnHFon,btnHFoff,btnModeMan,btnModeAuto;
+    Button btnPr;
     GridLayout modegridm, modegridms, modegrida;
     BroadcastReceiver br;
     String goalTemp = "+%1$d C";
@@ -44,6 +45,7 @@ public class MyActivity extends Activity {
         btnHFoff = (ImageButton) findViewById(R.id.imbtnHFoff);
         btnModeMan = (ImageButton) findViewById(R.id.imbtnMdman);
         btnModeAuto = (ImageButton) findViewById(R.id.imbtnMdauto);
+        btnPr = (Button) findViewById(R.id.btnPr);
 
         //Команды для контроллера
 
@@ -93,7 +95,7 @@ public class MyActivity extends Activity {
         answer_controller[9] = "--"; //Влажность
         answer_controller[10] = "0"; //Состояние теплого пола
         answer_controller[11] = "0"; //Состояние фанкойла
-        answer_controller[12] = "0"; //Состояние приточки
+        answer_controller[12] = "1"; //Состояние приточки
         answer_controller[13] = " "; //Сообщение информации
         answer_controller[14] = " "; //Сообщение системное
         answer_controller[15] = " "; //Сообщение фатальной ошибки
@@ -180,7 +182,10 @@ public class MyActivity extends Activity {
         stat += "Конд ";
         if (param[11].equals("0")) {stat += "выкл; ";} else {stat += "вкл "+param[11]+"; ";}
         stat += "Пр ";
-        if (param[12].equals("0")) {stat += "выкл; " ;} else {stat += "вкл; ";}
+        if (param[12].equals("0")) {stat += "min; " ;}// else {stat += "вкл; ";}
+        if (param[12].equals("1")) {stat += "norm; " ;}
+        if (param[12].equals("2")) {stat += "max; " ;}
+        if (param[12].equals("3")) {stat += "nd; " ;}
         tvStatus.setText(stat);
         CurrSTemp = Integer.parseInt(param[5]);
 
@@ -346,6 +351,13 @@ public class MyActivity extends Activity {
                 break;
         }
         startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],cmd,zhnum)));
+    }
+
+    public void onBtnPr (View v) {
+        String cmd;
+        if (answer_controller[12].equals("3")) {return;}
+        if (answer_controller[12].equals("2")) {cmd = command_controller[16];} else {cmd = command_controller[15];}
+        startService(new Intent(this,TibboService.class).putExtra("Command",String.format(strTcmdcontr,answer_controller[1],cmd," ")));
     }
 
     public void onFC(View v) {
