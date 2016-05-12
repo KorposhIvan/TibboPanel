@@ -26,6 +26,7 @@ public class MyActivity extends Activity {
     String[] answer_controller = new String[16];
     String[] command_controller = new String[23];
     String strTcmdcontr = "FF;%1$s;%2$s;%3$s; ; ; ";
+    Boolean blnSockState = false;
 
     /** Called when the activity is first created. */
     @Override
@@ -161,6 +162,11 @@ public class MyActivity extends Activity {
 
     public String[] Parse(String message) {
         String[] parseresult = new String[16];
+        if (message.equals("Socket is closed")) {
+            blnSockState = false;
+            return answer_controller;
+        }
+        blnSockState = true;
         parseresult = message.split(";");
         if (parseresult.length == 1) {
             return answer_controller;
@@ -198,6 +204,7 @@ public class MyActivity extends Activity {
             stat += "nd; ";
             btnPr.setBackgroundResource(R.drawable.btn_pr_dis_back);
         }
+        if (blnSockState) {stat += "conn";} else {stat += "discon";}
         tvStatus.setText(stat);
         CurrSTemp = Integer.parseInt(param[5]);
 

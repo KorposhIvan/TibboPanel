@@ -53,7 +53,7 @@ public class TCPClient {
                     }
                     state = in.read();
                     if (state<=0){ mRun = false; } //Смотрим на разрыв соединения
-                    //serverMessage = null;
+                    if (mRun == false) {mMessageListener.messageReceived("Socket is closed");}//serverMessage = null;
                 }
             } catch (Exception e) {
                 socket.close();
