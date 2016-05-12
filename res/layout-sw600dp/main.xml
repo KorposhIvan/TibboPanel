@@ -215,8 +215,7 @@
     <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/tvMoreAir"
-            android:id="@+id/button5" android:onClick="onBtnPr"/>
+            android:id="@+id/btnPr" android:onClick="onBtnPr" android:background="@drawable/btn_pr_norm_back"/>
     </LinearLayout>
     <LinearLayout android:layout_row="5"
                   android:layout_column="0"
