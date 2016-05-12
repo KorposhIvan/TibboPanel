@@ -182,10 +182,22 @@ public class MyActivity extends Activity {
         stat += "Конд ";
         if (param[11].equals("0")) {stat += "выкл; ";} else {stat += "вкл "+param[11]+"; ";}
         stat += "Пр ";
-        if (param[12].equals("0")) {stat += "min; " ;}// else {stat += "вкл; ";}
-        if (param[12].equals("1")) {stat += "norm; " ;}
-        if (param[12].equals("2")) {stat += "max; " ;}
-        if (param[12].equals("3")) {stat += "nd; " ;}
+        if (param[12].equals("0")) {
+            stat += "min; ";
+            btnPr.setBackgroundResource(R.drawable.btn_pr_min_back);
+        }
+        if (param[12].equals("1")) {
+            stat += "norm; ";
+            btnPr.setBackgroundResource(R.drawable.btn_pr_norm_back);
+        }
+        if (param[12].equals("2")) {
+            stat += "max; ";
+            btnPr.setBackgroundResource(R.drawable.btn_pr_max_back);
+        }
+        if (param[12].equals("3")) {
+            stat += "nd; ";
+            btnPr.setBackgroundResource(R.drawable.btn_pr_dis_back);
+        }
         tvStatus.setText(stat);
         CurrSTemp = Integer.parseInt(param[5]);
 
