@@ -15,7 +15,8 @@ public class MyActivity extends Activity {
     public final static String RMESSAGE = "RECEIVED";
     TextView tvRT, tvST, tvSetTemp, tvStatus, tvErrMess;
     ImageButton btnHFon,btnHFoff,btnModeMan,btnModeAuto;
-    Button btnPr;
+    ImageView imgV;
+    Button btnPr, btnFCoff, btnFCon1, btnFCon2, btnFCon3;
     GridLayout modegridm, modegridms, modegrida;
     BroadcastReceiver br;
     String goalTemp = "+%1$d C";
@@ -47,6 +48,11 @@ public class MyActivity extends Activity {
         btnModeMan = (ImageButton) findViewById(R.id.imbtnMdman);
         btnModeAuto = (ImageButton) findViewById(R.id.imbtnMdauto);
         btnPr = (Button) findViewById(R.id.btnPr);
+        btnFCoff = (Button) findViewById(R.id.btnFCoff);
+        btnFCon1 = (Button) findViewById(R.id.btnFCon1);
+        btnFCon2 = (Button) findViewById(R.id.btnFCon2);
+        btnFCon3 = (Button) findViewById(R.id.btnFCon3);
+        imgV = (ImageView) findViewById(R.id.imageView);
 
         //Команды для контроллера
 
@@ -132,6 +138,7 @@ public class MyActivity extends Activity {
         super.onDestroy();
         // дерегистрируем (выключаем) BroadcastReceiver
         unregisterReceiver(br);
+        stopService(new Intent(this,TibboService.class));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -217,6 +224,19 @@ public class MyActivity extends Activity {
             modegrida.setVisibility(modegrida.VISIBLE);
             modegridm.setVisibility(modegridm.GONE);
             tvSetTemp.setText(String.format(goalTemp,CurrSTemp));
+            if (param[8].equals("0")) {
+                if (param[11].equals("0")) {imgV.setBackgroundResource(R.drawable.jet_cool_off);}
+                if (param[11].equals("1")) {imgV.setBackgroundResource(R.drawable.jet_cool_1);}
+                if (param[11].equals("2")) {imgV.setBackgroundResource(R.drawable.jet_cool_2);}
+                if (param[11].equals("3")) {imgV.setBackgroundResource(R.drawable.jet_cool_3);}
+                if (param[11].equals("4")) {imgV.setBackgroundResource(R.drawable.jet_cool_off);}
+            } else {
+                if (param[10].equals("0")) {
+                    imgV.setBackgroundResource(R.drawable.tp_off);
+                } else {
+                    imgV.setBackgroundResource(R.drawable.tp_on);
+                }
+            }
         } else {
             btnModeMan.setBackgroundResource(R.drawable.mdmanen);
             btnModeAuto.setBackgroundResource(R.drawable.mdatdis);
@@ -246,6 +266,37 @@ public class MyActivity extends Activity {
                     btnHFoff.setEnabled(true);
                 }
             }
+        }
+
+        if (param[11].equals("0")) {
+            btnFCoff.setBackgroundResource(R.drawable.fancoil_off_active);
+            btnFCon1.setBackgroundResource(R.drawable.btn_fc_1_dis_backgr);
+            btnFCon2.setBackgroundResource(R.drawable.btn_fc_2_dis_backgr);
+            btnFCon3.setBackgroundResource(R.drawable.btn_fc_3_dis_backgr);
+        }
+        if (param[11].equals("1")) {
+            btnFCon1.setBackgroundResource(R.drawable.fancoil_1_active);
+            btnFCoff.setBackgroundResource(R.drawable.btn_fc_off_dis_backgr);
+            btnFCon2.setBackgroundResource(R.drawable.btn_fc_2_dis_backgr);
+            btnFCon3.setBackgroundResource(R.drawable.btn_fc_3_dis_backgr);
+        }
+        if (param[11].equals("2")) {
+            btnFCon2.setBackgroundResource(R.drawable.fancoil_2_active);
+            btnFCoff.setBackgroundResource(R.drawable.btn_fc_off_dis_backgr);
+            btnFCon1.setBackgroundResource(R.drawable.btn_fc_1_dis_backgr);
+            btnFCon3.setBackgroundResource(R.drawable.btn_fc_3_dis_backgr);
+        }
+        if (param[11].equals("3")) {
+            btnFCon3.setBackgroundResource(R.drawable.fancoil_3_active);
+            btnFCoff.setBackgroundResource(R.drawable.btn_fc_off_dis_backgr);
+            btnFCon1.setBackgroundResource(R.drawable.btn_fc_1_dis_backgr);
+            btnFCon2.setBackgroundResource(R.drawable.btn_fc_2_dis_backgr);
+        }
+        if (param[11].equals("4")) {
+            btnFCoff.setBackgroundResource(R.drawable.btn_fc_off_dis_backgr);
+            btnFCon1.setBackgroundResource(R.drawable.btn_fc_1_dis_backgr);
+            btnFCon2.setBackgroundResource(R.drawable.btn_fc_2_dis_backgr);
+            btnFCon3.setBackgroundResource(R.drawable.btn_fc_3_dis_backgr);
         }
 
         err = param[13]+" " + param[14]+" " + param[15];
@@ -287,7 +338,7 @@ public class MyActivity extends Activity {
         btnModeAuto.setBackgroundResource(R.drawable.mdatdis);
         btnModeMan.setEnabled(false);
         btnModeAuto.setEnabled(true);
-        if (answer_controller[8].equals(0)) {
+        if (answer_controller[8].equals("0")) {
             modegridms.setVisibility(modegridms.VISIBLE);
         } else {
             modegridm.setVisibility(modegridm.VISIBLE);

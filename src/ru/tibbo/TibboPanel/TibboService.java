@@ -7,37 +7,33 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 
-import android.app.PendingIntent;
-
 public class TibboService extends Service {
     //Служба будет в фоне опрашивать контроллер и будет всегда перезапускаться
-    private static final int NOTIFY_ID = 101; //Идентификатор уведомления
     ExecutorService es; //Выполнитель службы (хэндлер)
     private TCPClient mTcpClient; //Экземпляр класса TCP клиента
-    boolean RESTARTSERVICE=false; //Флаг рестарта службы
+    ListenRun lr = new ListenRun(); //Объявляем Runnable поток для слушателя TCP
+    SendRun sr = new SendRun(); //Обявляем Runnable поток для отсылки сообщений
+    //boolean RESTARTSERVICE=false; //Флаг рестарта службы
 
     public void onCreate() {
         super.onCreate();
         es = Executors.newFixedThreadPool(4); //Определяем 4 потока для выполнения комманд
-        ListenRun lr = new ListenRun(); //Объявляем Runnable поток для слушателя TCP
-        SendRun sr = new SendRun(); //Обявляем Runnable поток для отсылки сообщений
         es.execute(lr); //Тут и ниже запускаем потоки
         es.execute(sr);
     }
 
     public void onDestroy() {
         super.onDestroy();
+        mTcpClient.stopClient();
         //if (RESTARTSERVICE) {
-            mTcpClient.stopClient();
-            startService(new Intent(this,TibboService.class));
+        //    mTcpClient.stopClient();
+        //   startService(new Intent(this,TibboService.class));
         //}
     }
 
@@ -46,29 +42,6 @@ public class TibboService extends Service {
             mTcpClient.sendMessage(intent.getStringExtra("Command")); //Отсылаем команду (пришла из MyActivity)
         }
         return super.onStartCommand(intent, flags, startId);
-    }
-
-    void sendNotif() {
-        Context context = getApplicationContext();
-        Intent notificationIntent = new Intent(context, MyActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(context,
-                0, notificationIntent,
-                PendingIntent.FLAG_CANCEL_CURRENT);
-        NotificationManager nm;
-        Notification.Builder nb;
-        nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-        nb = new Notification.Builder(context);
-        nb.setContentIntent(contentIntent)
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setTicker("Обнаружена протечка!")
-                .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setContentTitle("Тревога")
-                .setContentText("Обнаружена протечка в подвале");
-        Notification notif = nb.build();
-        notif.defaults = notif.DEFAULT_ALL;
-        notif.flags = notif.flags | notif.FLAG_ONGOING_EVENT;
-        nm.notify(NOTIFY_ID,notif);
     }
 
     public IBinder onBind(Intent arg0) {
@@ -106,14 +79,14 @@ public class TibboService extends Service {
                     final Intent intent = new Intent(MyActivity.BROADCAST_ACTION);
                     intent.putExtra(MyActivity.RMESSAGE,message); //Передаем сообщение в активити
                     sendBroadcast(intent);
-                    if (message.equals("Dry in podval;d")) {sendNotif();} //Нотификация на протечку. Изменить
-                    if (message.equals("Socket is closed")) {RESTARTSERVICE = true; stopSelf();}
+                    if (message.equals("Socket is closed")) {stopSelf();}
                     //Вот здесь думаем. Как перезапустить иначе?
                 }
             },strIP,Integer.parseInt(strPort));
             mTcpClient.run();
         }
     }
+
     public class SendRun implements Runnable {
         public SendRun() {
 
@@ -134,6 +107,11 @@ public class TibboService extends Service {
                     if (mTcpClient!=null) {
                         mTcpClient.sendMessage("FF;"+roomid+";00; ; ; ; "); //Посылка команды получить все. На практике нужно изменить
                         TimeUnit.SECONDS.sleep(15);
+                    }
+                    else {
+                        final Intent intent = new Intent(MyActivity.BROADCAST_ACTION);
+                        intent.putExtra(MyActivity.RMESSAGE,"Socket is closed"); //Передаем сообщение в активити
+                        sendBroadcast(intent);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
